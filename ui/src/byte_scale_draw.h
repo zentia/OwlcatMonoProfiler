@@ -1,6 +1,7 @@
 #pragma once
 #include "qwt_scale_draw.h"
 #include "common_ui.h"
+#include "qwt_text.h"
 
 /*
     Class that supplies the axis of graph of allocated memory with correct labels

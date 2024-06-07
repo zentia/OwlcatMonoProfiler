@@ -5,6 +5,7 @@
 #include "qwt_point_data.h"
 #include "qwt_picker_machine.h"
 #include "qwt_scale_widget.h"
+#include "qwt_scale_map.h"
 #include <algorithm>
 #include <future>
 #include <chrono>
@@ -690,7 +691,7 @@ bool main_window::eventFilter(QObject* object, QEvent* event)
         {
             auto ev = (QWheelEvent*)event;
 
-            setZoom(m_zoom + ev->delta() / 1000.0f);
+            setZoom(m_zoom + ev->pixelDelta().y() / 1000.0f);
 
             return true;
         }

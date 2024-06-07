@@ -1,4 +1,5 @@
 #include "band_picker.h"
+#include <qpainterpath.h>
 
 band_picker::band_picker(QWidget* widget)
         : QwtPlotPicker(widget)

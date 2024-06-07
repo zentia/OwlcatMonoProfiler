@@ -42,15 +42,15 @@
 # either expressed or implied, of the FreeBSD Project.
 #=============================================================================
 
-if (Qt5Gui_FOUND)
-  get_target_property(QT_INCLUDE_DIR Qt5::Gui INTERFACE_INCLUDE_DIRECTORIES)
+if (Qt6Gui_FOUND)
+  get_target_property(QT_INCLUDE_DIR Qt6::Gui INTERFACE_INCLUDE_DIRECTORIES)
 endif ()
 
 set(CMAKE_FIND_DEBUG_MODE TRUE)
 find_path ( QWT_INCLUDE_DIR
   NAMES qwt_plot.h
   PATHS ${QT_INCLUDE_DIR} "${CMAKE_SOURCE_DIR}/_deps/qwt/include"
-  PATH_SUFFIXES qwt qwt-qt5 qwt6 ""
+  PATH_SUFFIXES qwt qwt-qt6 qwt6 ""
 )
 set(CMAKE_FIND_DEBUG_MODE FALSE)
 
@@ -67,13 +67,13 @@ endif ()
 unset ( _VERSION_FILE )
 
 find_library ( QWT_LIBRARY
-  NAMES qwt qwt-qt5
+  NAMES qwt qwt-qt6
   HINTS ${QT_LIBRARY_DIR} "${CMAKE_SOURCE_DIR}/_deps/qwt/lib"
 )
 
 if (WIN32)
     find_library ( QWT_LIBRARY_DEBUG
-        NAMES qwtd qwtd-qt5
+        NAMES qwtd qwtd-qt6
         HINTS ${QT_LIBRARY_DIR} "${CMAKE_SOURCE_DIR}/_deps/qwt/lib"
     )
 endif()

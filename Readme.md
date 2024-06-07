@@ -15,23 +15,25 @@ Owlcat Mono Profiler is a part of a planned family of Unity-related tools called
 Right now, Owlcat Mono Profiler is only compatible with desktop games made with a more-or-less recent version of Unity for Windows (the lowest tested version is 2018.4.10f, but earlier version might work, too). IL2CPP is now supported with some limitations. The aim is to make it universal across the recent Unity versions, and cross-platform regarding both UI/client and target/server.
 
 ## Features
-* Profile non-instrumented builds (without Script Debugging) on Windows (and on other desktop platforms in future)
-* Profile Editor and builds on console and mobile platforms after some light instrumentation
-* Slow-down caused by profiler is about 20-30%
-* Additional memory needed for profiling depends on project, but 200Mb is enough for one or two millions of live allocations
-* See memory usage in real time
-* See live objects for any time period in recorded session (i.e. objects that were allocated and not freed during that period)
-* See callstacks which were used to allocate live objects
-* Filter types and callstacks
-* See references to objects (only while the profiling session in running and only for current set of live objects)
-* Force pause/unpause game
+
+- Profile non-instrumented builds (without Script Debugging) on Windows (and on other desktop platforms in future)
+- Profile Editor and builds on console and mobile platforms after some light instrumentation
+- Slow-down caused by profiler is about 20-30%
+- Additional memory needed for profiling depends on project, but 200Mb is enough for one or two millions of live allocations
+- See memory usage in real time
+- See live objects for any time period in recorded session (i.e. objects that were allocated and not freed during that period)
+- See callstacks which were used to allocate live objects
+- Filter types and callstacks
+- See references to objects (only while the profiling session in running and only for current set of live objects)
+- Force pause/unpause game
 
 ## Planned features
-* Create watch/stop-lists to profile types selectively
-* Console version of profiler for distribution to players and automation
-* Custom events, displayed on graphs
-* Allocations grouped by callstack, with tree view
-* Support for non-Windows platforms
+
+- Create watch/stop-lists to profile types selectively
+- Console version of profiler for distribution to players and automation
+- Custom events, displayed on graphs
+- Allocations grouped by callstack, with tree view
+- Support for non-Windows platforms
 
 ## Limitations
 
@@ -49,20 +51,20 @@ You can download the latest stable release from Releases page, but you also can 
 
 ### Software requird:
 
-* Cmake 3.14
-* A recent C++ compiler with C++ 17 support (on Windows, Microsoft Visual Studio is required for now: we don't support MinGW or anything else)
+- Cmake 3.14
+- A recent C++ compiler with C++ 17 support (on Windows, Microsoft Visual Studio is required for now: we don't support MinGW or anything else)
 
 ### External dependencies:
 
-* Qt 5.15
-* Qwt 6.1.5
-* ASIO 1.18.0 (without Boost, installed automatically)
-* Some relevant version of Mono (optional for now: we bundle the few necessary headers)
+- Qt 5.15
+- Qwt 6.1.5
+- ASIO 1.18.0 (without Boost, installed automatically)
+- Some relevant version of Mono (optional for now: we bundle the few necessary headers)
 
 You will need to set up a few CMake variables for the build:
 
-* Qt5_DIR - a path to a cmake folder inside Qt installation (e.g. d:\qt\5.15.0\msvc2019_64\lib\cmake\Qt5\)
-* MONO_DLL_PATH - a path to a verion of mono-bdwgc.dll you use (necessary for test only)
+- Qt6_DIR - a path to a cmake folder inside Qt installation (e.g. c:\qt\6.7.1\msvc2019_64\lib\cmake\Qt6\)
+- MONO_DLL_PATH - a path to a verion of mono-bdwgc.dll you use (necessary for test only)
 
 ## Installation/Usage
 
