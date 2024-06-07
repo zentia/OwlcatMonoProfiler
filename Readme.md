@@ -56,8 +56,8 @@ You can download the latest stable release from Releases page, but you also can 
 
 ### External dependencies:
 
-- Qt 5.15
-- Qwt 6.1.5
+- Qt 6.7.1
+- Qwt 6.3
 - ASIO 1.18.0 (without Boost, installed automatically)
 - Some relevant version of Mono (optional for now: we bundle the few necessary headers)
 
@@ -79,7 +79,7 @@ There are two way to use Owlcat Mono Profiler:
 If you want to profile your game in Editor, or (in future) on non-Windows platforms:
 
 0. Make sure your Firewall settings allow traffic on port which UI uses to communicate with the profiler in game (the default is 8888)
-1. Copy owlcat_mono_profiler.dll to your game's Assets folder
+1. Copy mono_profiler_mono.dll to your game's Assets folder
 2. Copy OwlcatMonoProfiler.cs to your game's Assets folder
 3. Import the new files in Unity
 4. Define PROFILE_MONO in your build settings

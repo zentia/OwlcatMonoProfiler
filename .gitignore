@@ -2,3 +2,9 @@ build
 _deps
 external/detours/bin.*
 external/detours/lib.*
+unity/OwlcatMonoProfilerTest/Library
+unity/OwlcatMonoProfilerTest/Logs
+unity/OwlcatMonoProfilerTest/Temp
+unity/OwlcatMonoProfilerTest/UserSettings
+unity/OwlcatMonoProfilerTest/log.txt
+*.csproj
