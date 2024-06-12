@@ -6,5 +6,8 @@ unity/OwlcatMonoProfilerTest/Library
 unity/OwlcatMonoProfilerTest/Logs
 unity/OwlcatMonoProfilerTest/Temp
 unity/OwlcatMonoProfilerTest/UserSettings
+unity/OwlcatMonoProfilerTest/MemoryCaptures
 unity/OwlcatMonoProfilerTest/log.txt
+
 *.csproj
+
