@@ -95,3 +95,13 @@ You can profile any Unity-based game on Windows as long as you have appropriate 
 1. Find UnityEngine pdb file corresponding to the version of Unity and type of build target game uses (use DumpBin utility that is available within Microsoft Visual Studio Command Prompt: the name and guid of pdb can be found by calling dumpbin /HEADERS UnityPlayer.dll and looking at "Debug directories" section). The pdb file can usually be found inside your Unity installation's folder, or on Unity symbol server (http://symbolserver.unity3d.com/). Copy this pdb file to the same folder where target game's executable file resides.
 2. Run profiler UI and use "Run app" button. Select game's executable file, specify necessary command line arguments and port and press OK
 3. The game should start, and profiler should connect to it after 5-second delay
+
+```
+cd external/detours
+nmake -f makefile
+cd ../..
+mkdir build
+cd build
+cmake -DCMAKE_PREFIX_PATH=C:\Qt\6.7.1\msvc2019_64\lib\cmake ..
+msbuild owlcat_mono_profiler.sln
+```
