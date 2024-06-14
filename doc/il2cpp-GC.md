@@ -1,28 +1,28 @@
-Unity 的增量垃圾收集(Incremental Garbage Collection,IGC)是 Unity 引擎中的一个重要特性，它通过将垃圾收集过程分解为多个小步骤，以减少垃圾收集对游戏性能的影响。增量 GC 的实现涉及到多个方面，包括内存分配、标记和清除阶段、写屏障等。以下是对 Unity 增量 GC 源码的分析。
+Unity 的增量垃圾收集(Incremental Garbage Collection,IGC)是 Unity 引擎中的一个重要特性，它通过将垃圾收集过程分解为多个小步骤，以减少垃圾收集对游戏性能的影响。增量 GC 的实现涉及到多个方面，包括内存分配、标记和清除阶段、写屏障等。
 
 # 1. 源码结构
 
-Unity 的增量 GC 源码通常位于 Unity 引擎的源码仓库中。以下是一些关键文件和目录：
+il2cpp 的增量 GC 源码通常位于 `External/il2cpp/build/il2cpp/gc`：
 
 - `GarbageCollector.cpp`：增量 GC 的主要实现文件。
 - `GarbageCollector.h`：增量 GC 的头文件，定义了主要的数据结构和函数接口。
-- `WriteBarrier.cpp`：写屏障的实现。
+- `GCWriteBarrierValidation.cpp`：写屏障的实现。
 - `Marking.cpp`：标记阶段的实现。
 - `Sweeping.cpp`：清除阶段的实现。
 
 # 2. 初始化
 
-增量 GC 的初始化过程在`GarbageCollector.cpp`文件中实现。主要步骤包括：
+增量 GC 的初始化过程在`Runtime.cpp`文件中实现。主要步骤包括：
 
 1. 内存分配：为垃圾收集器分配所需的内存，包括堆、对象头信息等。
 2. 数据结构初始化：初始化各种数据结构，如自由列表（free list）、根集等。
 3. 线程管理：创建和管理用于并发垃圾收集的线程。
 
-```c
-void GarbageCollector::Initialize()
+```cpp
+bool Runtime::Init(const char* domainName)
 {
   // 初始化内存分配器
-  InitializeAllocator();
+  gc::GarbageCollector::Initialize();
 
   // 初始化根集
   InitializeRoots();
@@ -148,22 +148,41 @@ void GarbageCollector::WriteBarrier(void *obj, void* value)
 }
 ```
 
+# 终结器(Finalizer)
+
+```cpp
+void GarbageCollector::InitializeFinalizer()
+{
+  GarbageCollector::InvokeFinalizers();
+}
+```
+
 # 8. 根集管理
 
 根集(RootSet)时垃圾收集器的起点，包括全局变量、栈变量和寄存器中的引用。增量 GC 需要扫描根集以标记所有可达的对象。根集管理的实现主要在`GarbageCollector.cpp`文件中。
 
 根集注册
 
-增量 GC 提供了`AddRoot`函数用于注册根集。该函数将根集的起始地址和结束地址添加到一个根集列表中。
+增量 GC 提供了`RegisterRoot`函数用于注册根集。该函数将根集的起始地址和结束地址添加到一个根集列表中。
 
 ```cpp
-void GarbageCollector::AddRoot(void* start, void* end)
+static void*
+register_root(void *arg)
+{
+  RootData* root_data = (RootData*)arg;
+  s_Root.insert(std::make_pair(root_data->start, root_data->end));
+  return NULL;
+}
+
+void il2cpp::gc::GarbageCollector::RegisterRoot(chat* start, size_t size)
 {
   // 创建根集条目
-  RootEntry entry = {start, end};
-
+  RootData root_data;
+  root_data.start = start;
+  /* Boehm root processing requires ont byte past end of region to be scanned */
+  root_data.end = start + size + 1;
   // 将根集条目添加到根集列表中
-  rootSet.push_back(entry);
+  CallWithAllocLockHeld(register_root, &root_data);
 }
 ```
 
