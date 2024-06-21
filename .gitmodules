@@ -1,0 +1,3 @@
+[submodule "unity/proto"]
+	path = unity/proto
+	url = https://github.com/zentia/proto.git
